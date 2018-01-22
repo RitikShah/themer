@@ -13,10 +13,13 @@ Aids in theme making for Shulker Box
 print(chr(27) + "[2J")
 
 with open('template.mcfunction', 'r') as file:
-	  template = file.read()
+	template = file.read().split('\n')
 
 with open('themer.config', 'r') as file:
-	  templateconfig = file.read().split('\n')
+	templateconfig = file.read().split('\n')
+
+with open('template-helper.mcfunction', 'r') as file:
+	template_helper = file.read().split('\n')
 
 version = templateconfig.pop(0)
 
@@ -61,16 +64,20 @@ def save_config(filename, themedict):
 
 #############################################################
 
-def save_theme(filename, themedict):
-	global template
+def save_theme(filename, themedict, template):
 	global templateconfig
 	print('Saving ' + filename + '.mcfunction')
 
-	for key,value in themedict:
-		if key[:1] == '>':
-			if key.replace(" ","").replace(">","") == 
+	if themedict['> spruce_axis'] == 'false':
+		template[80] = template_helper[0]
+		template[81] = template_helper[1]
+		template[82] = template_helper[2]
+	elif themedict['> oak_axis'] == 'false':
+		template[90] = template_helper[3]
+		template[91] = template_helper[4]
+		template[92] = template_helper[5]
 
-	template = template.format_map(themedict)
+	template = '\n'.join(template).format_map(themedict)
 
 	with open('themes/' + filename + '.mcfunction', 'w') as file:
 		file.write(template)
@@ -155,7 +162,7 @@ def new_theme():
 
 	save_config(filename, themedict)
 
-	save_theme(filename, themedict)
+	save_theme(filename, themedict, template)
 
 	print('Program has executed successfully. Goodbye!')
 
@@ -191,7 +198,7 @@ def edit_theme():
 
 	save_config(filename, themedict)
 
-	save_theme(filename, themedict)
+	save_theme(filename, themedict, template)
 
 	print('Program has executed successfully. Goodbye!')
 
@@ -216,7 +223,7 @@ def convert_config():
 	print('Converting to Config: \n')
 	themedict = convert_to_dict(themeconfig)
 
-	save_theme(filename, themedict)
+	save_theme(filename, themedict, template)
 
 	print('Program has executed successfully. Goodbye!')
 
@@ -252,7 +259,7 @@ def update_themes():
 
 		themeconfig.pop(0)
 		themedict = convert_to_dict(themeconfig)
-
+		
 		tempthemedict = {}
 
 		for key in templateconfig:
@@ -265,15 +272,15 @@ def update_themes():
 		newthemeconfig = ''.join('{0}={1}\n'.format(key, val) for key, val in tempthemedict.items())
 
 		newthemeconfig = (version + '\n') + newthemeconfig
-
+		
 		print('Updating Config File: ' + infile[8:])
-
+		
 		with open(infile, 'w') as file:
 			file.write(newthemeconfig)
 
 		print('Saving Theme File: ' + infile[8:])
 
-		save_theme(infile[8:].split('.')[0], themedict)
+		save_theme(infile[8:].split('.')[0], themedict, template)
 
 	#### End File Loop ####
 	
@@ -322,6 +329,8 @@ def main():
 	else:
 		print('Invalid Option. Terminating program.\n')
 
+#############################################################
+# | | | | | | | | | | | | | | | | | | | | | | | | | | | | | #
 #############################################################
 
 main()
