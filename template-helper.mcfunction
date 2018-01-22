@@ -1,0 +1,6 @@
+execute as @e[type=armor_stand,name=cell] run execute at @s run fill ~1 ~ ~1 ~32 ~27 ~32 {SPRUCE_LOG} replace spruce_log[axis=x]
+execute as @e[type=armor_stand,name=cell] run execute at @s run fill ~1 ~ ~1 ~32 ~27 ~32 {SPRUCE_LOG} replace spruce_log[axis=y]
+execute as @e[type=armor_stand,name=cell] run execute at @s run fill ~1 ~ ~1 ~32 ~27 ~32 {SPRUCE_LOG} replace spruce_log[axis=z]
+execute as @e[type=armor_stand,name=cell] run execute at @s run fill ~1 ~ ~1 ~32 ~27 ~32 {OAK_LOG} replace oak_log[axis=x]
+execute as @e[type=armor_stand,name=cell] run execute at @s run fill ~1 ~ ~1 ~32 ~27 ~32 {OAK_LOG} replace oak_log[axis=y]
+execute as @e[type=armor_stand,name=cell] run execute at @s run fill ~1 ~ ~1 ~32 ~27 ~32 {OAK_LOG} replace oak_log[axis=z]
