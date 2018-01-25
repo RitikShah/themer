@@ -40,7 +40,6 @@ def convert_to_dict(themeconfig):
 #############################################################
 
 def check_version(themeconfig):
-	#global version
 	if themeconfig[0] != version:
 	  	return False
 	else:
@@ -178,7 +177,7 @@ def edit_theme():
 	with open('configs/' + filename + '.config', 'r') as file:
 		themeconfig = file.read().split('\n')
 
-	if check_version(themeconfig) == True:
+	if not(check_version(themeconfig)):
 		print('Config is not latest version.\nQuiting program')
 		return
 
@@ -214,7 +213,7 @@ def convert_config():
 	with open('configs/' + filename + '.config', 'r') as file:
 		themeconfig = file.read().split('\n')
 
-	if check_version(themeconfig) == True:
+	if not(check_version(themeconfig)):
 		print('Config is not latest version.\nQuiting program')
 		return
 
@@ -253,7 +252,7 @@ def update_themes():
 		with open(infile, 'r') as file:
 	  		themeconfig = file.read().split('\n')
 
-		if check_version(themeconfig) == True:
+		if check_version(themeconfig):
 			print('Skipping ' + infile + '. Already latest version.')
 			continue
 
